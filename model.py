@@ -34,9 +34,6 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         self.dense = tf.keras.layers.Dense(d_model)
 
     def split_heads(self, x, batch_size):
-        """最後の次元を(num_heads, depth)に分割。
-        結果をshapeが(batch_size, num_heads, variates_num, depth)となるようにリシェイプする。
-        """
         x = tf.reshape(x, (batch_size, -1, self.num_heads, self.depth))
         return tf.transpose(x, perm=[0, 2, 1, 3])
 
